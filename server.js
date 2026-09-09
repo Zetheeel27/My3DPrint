@@ -26,6 +26,7 @@ const catalog = {
   'Dragon articulé': { price: 19, image: 'dragon_articulé.png' },
   'Loutre articulée': { price: 19, image: 'loutre_articulé.png' },
 };
+const promotions = { MY3D10: 0.10 };
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -72,6 +73,7 @@ app.post('/create-checkout-session', async (req, res) => {
   }
 
   const items = Array.isArray(req.body.items) ? req.body.items : [];
+  const promoCode = String(req.body.promoCode || '').trim().toUpperCase();
   if (!items.length) {
     return res.status(400).json({ error: 'Cart is empty.' });
   }
@@ -94,15 +96,21 @@ app.post('/create-checkout-session', async (req, res) => {
     });
 
     const subtotal = items.reduce((sum, item) => sum + catalog[item.name].price * Math.min(20, Math.max(1, Number(item.quantity) || 1)), 0);
-    const shippingOptions = subtotal >= 60
+    const discountRate = promotions[promoCode] || 0;
+    const discountedSubtotal = Math.round(subtotal * (1 - discountRate) * 100) / 100;
+    const shippingOptions = discountedSubtotal >= 60
       ? [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 0, currency: 'eur' }, display_name: 'Livraison offerte' } }]
       : [{ shipping_rate_data: { type: 'fixed_amount', fixed_amount: { amount: 490, currency: 'eur' }, display_name: 'Livraison suivie' } }];
 
+    const discounts = discountRate
+      ? [{ coupon: (await stripe.coupons.create({ percent_off: discountRate * 100, duration: 'once', name: `My3DPrint ${promoCode}` })).id }]
+      : undefined;
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: lineItems,
       shipping_address_collection: { allowed_countries: ['FR', 'BE', 'LU', 'DE', 'ES', 'IT', 'NL', 'PT', 'CH'] },
       shipping_options: shippingOptions,
+      discounts,
       customer_creation: 'always',
       success_url: `${req.protocol}://${req.get('host')}/?payment=success`,
       cancel_url: `${req.protocol}://${req.get('host')}/?payment=cancelled`,
