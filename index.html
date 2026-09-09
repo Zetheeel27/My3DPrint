@@ -2,9 +2,82 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="My3DPrint — objets 3D personnalisés, accessoires premium et créations sur mesure fabriqués en France.">
-		<title>My3DPrint — Make it yours</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta name="description" content="My3DPrint fabrique des objets imprimés en 3D, accessoires personnalisés, supports, créatures articulées et créations sur mesure en PLA ou PETG.">
+	<meta name="keywords" content="impression 3D, objets personnalisés, PLA, PETG, support manette, support DJI Neo 2, dragon articulé, fabrication française">
+	<meta name="author" content="My3DPrint">
+	<meta name="theme-color" content="#101214">
+	<meta name="robots" content="index, follow, max-image-preview:large">
+	<meta property="og:type" content="website">
+	<meta property="og:locale" content="fr_FR">
+	<meta property="og:title" content="My3DPrint — Vos idées, imprimées en 3D">
+	<meta property="og:description" content="Objets imprimés en 3D, accessoires personnalisés et créations sur mesure fabriqués à la demande.">
+	<meta property="og:image" content="batarang.png">
+	<meta property="og:image:alt" content="Batarang mural imprimé en 3D par My3DPrint">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="My3DPrint — Vos idées, imprimées en 3D">
+	<meta name="twitter:description" content="Objets imprimés en 3D, accessoires personnalisés et créations sur mesure.">
+	<meta name="twitter:image" content="batarang.png">
+	<title>My3DPrint — Vos idées, imprimées en 3D</title>
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@graph": [
+			{
+				"@type": "Organization",
+				"@id": "#organization",
+				"name": "My3DPrint",
+				"description": "Objets imprimés en 3D et créations sur mesure fabriqués en France.",
+				"email": "zakode03@gmail.com",
+				"telephone": "+33759327657"
+			},
+			{
+				"@type": "WebSite",
+				"@id": "#website",
+				"name": "My3DPrint",
+				"description": "Boutique d'objets imprimés en 3D, personnalisés et fabriqués à la demande.",
+				"publisher": { "@id": "#organization" },
+				"inLanguage": "fr-FR"
+			},
+			{
+				"@type": "ItemList",
+				"name": "Collection My3DPrint",
+				"numberOfItems": 5,
+				"itemListElement": [
+					{ "@type": "ListItem", "position": 1, "name": "Support de manette", "url": "support_manette2.png" },
+					{ "@type": "ListItem", "position": 2, "name": "Support DJI Neo 2", "url": "support_neo2.png" },
+					{ "@type": "ListItem", "position": 3, "name": "Batarang mural", "url": "batarang.png" },
+					{ "@type": "ListItem", "position": 4, "name": "Dragon articulé", "url": "dragon_articulé.png" },
+					{ "@type": "ListItem", "position": 5, "name": "Loutre articulée", "url": "loutre_articulé.png" }
+				]
+			},
+			{
+				"@type": "Product",
+				"name": "Batarang mural",
+				"image": "batarang.png",
+				"description": "Batarang mural imprimé en 3D, personnalisable en couleur et gravure.",
+				"brand": { "@type": "Brand", "name": "My3DPrint" },
+				"offers": { "@type": "Offer", "priceCurrency": "EUR", "price": "18.70", "availability": "https://schema.org/InStock" }
+			},
+			{
+				"@type": "Product",
+				"name": "Support de manette",
+				"image": "support_manette2.png",
+				"description": "Support de manette imprimé en 3D, disponible en noir ou blanc.",
+				"brand": { "@type": "Brand", "name": "My3DPrint" },
+				"offers": { "@type": "Offer", "priceCurrency": "EUR", "price": "24.00", "availability": "https://schema.org/InStock" }
+			},
+			{
+				"@type": "Product",
+				"name": "Support DJI Neo 2",
+				"image": "support_neo2.png",
+				"description": "Support imprimé en 3D pour DJI Neo 2, fabriqué à la demande.",
+				"brand": { "@type": "Brand", "name": "My3DPrint" },
+				"offers": { "@type": "Offer", "priceCurrency": "EUR", "price": "29.00", "availability": "https://schema.org/InStock" }
+			}
+		]
+	}
+	</script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
@@ -27,6 +100,9 @@
 		* { box-sizing: border-box; }
 		html { scroll-behavior: smooth; }
 		body { margin: 0; background: var(--ink); color: var(--white); font-family: var(--sans); font-size: 15px; overflow-x: hidden; }
+		:focus-visible { outline: 2px solid var(--acid); outline-offset: 4px; }
+		.skip-link { position: fixed; z-index: 20; top: 10px; left: 10px; padding: 10px 14px; background: var(--acid); color: var(--ink); transform: translateY(-150%); transition: transform .2s; font-weight: 700; font-size: 12px; }
+		.skip-link:focus { transform: translateY(0); }
 		button, input, select { font: inherit; }
 		button { cursor: pointer; }
 		a { color: inherit; text-decoration: none; }
@@ -219,16 +295,18 @@
 		.modal-delivery { color: #747873; font-size: 11px; line-height: 1.5; margin: 18px 0; }
 		.modal-add { width: 100%; justify-content: center; background: var(--ink); color: var(--acid); }
 		.modal-add:hover { background: #303536; }
-		@media (max-width: 850px) { .navlinks { display: none; } .hero { grid-template-columns: 1fr; padding-top: 55px; } .hero-visual { min-height: 330px; } .hero-visual img { min-height: 330px; } .products { grid-template-columns: repeat(2, 1fr); } .custom, .materials, .request-layout, .faq-grid { grid-template-columns: 1fr; gap: 35px; padding: 55px 7%; } .studio-note { grid-template-columns: 1fr; gap: 28px; padding: 65px 0; } .service-strip { grid-template-columns: 1fr; gap: 19px; } }
-		@media (max-width: 850px) { .product-modal { grid-template-columns: 1fr; } .modal-image, .modal-image img { min-height: 250px; height: 250px; } .modal-content { padding: 26px; } }
-		@media (max-width: 500px) { .shell { padding: 0 21px; } .nav { height: 68px; } .hero { min-height: auto; padding: 55px 0; } h1 { font-size: 54px; } .hero-visual { min-height: 270px; } .hero-visual img { min-height: 270px; } .section { padding: 65px 0; } .products { gap: 9px; } .product-image { height: 190px; } .product-info { padding: 12px; } .product-info h3 { font-size: 15px; } .product-info p { font-size: 11px; margin-bottom: 13px; } .product-bottom { align-items: end; gap: 5px; flex-direction: column; } .add { width: 100%; } .section-head { display: block; } .section-meta { margin-top: 15px; } .steps, .material-points, .project-form { gap: 10px; } .steps { grid-template-columns: 1fr; } .step h3 { font-size: 16px; margin-top: 14px; } .materials-visual { min-height: 270px; } .materials-visual img { min-height: 270px; } .project-form { grid-template-columns: 1fr; } .field.full { grid-column: auto; } .form-note { grid-column: auto; } .footer-top { display: block; } .footer-links { margin-top: 25px; gap: 20px; flex-wrap: wrap; } .floating-cart { right: 14px; bottom: 14px; } }
+		@media (max-width: 1000px) { .hero { gap: 35px; } .products { grid-template-columns: repeat(3, 1fr); } .custom, .materials { gap: 42px; } }
+		@media (max-width: 850px) { .navlinks { display: none; } .hero { grid-template-columns: 1fr; padding-top: 55px; } .hero-visual { min-height: 330px; } .hero-visual img { min-height: 330px; } .products { grid-template-columns: repeat(2, 1fr); } .custom, .materials, .request-layout, .faq-grid { grid-template-columns: 1fr; gap: 35px; padding: 55px 7%; } .studio-note { grid-template-columns: 1fr; gap: 28px; padding: 65px 0; } .service-strip { grid-template-columns: 1fr; gap: 19px; } .product-modal { grid-template-columns: 1fr; } .modal-image, .modal-image img { min-height: 250px; height: 250px; } .modal-content { padding: 26px; } }
+		@media (max-width: 500px) { .shell { padding: 0 21px; } .topline { padding: 8px 14px; font-size: 9px; letter-spacing: .08em; line-height: 1.35; } .nav { height: 68px; } .brand { font-size: 20px; } .nav-actions { gap: 12px; } .hero { min-height: auto; padding: 46px 0 56px; } h1 { font-size: clamp(42px, 13vw, 54px); letter-spacing: -.065em; } .hero-copy { font-size: 14px; margin-bottom: 25px; } .hero-visual { min-height: 270px; } .hero-visual img { min-height: 270px; } .hero-tag { right: 13px; bottom: 13px; padding: 10px 11px; } .hero-tag span { font-size: 16px; } .hero-discount { left: 13px; top: 13px; padding: 8px 10px; font-size: 9px; } .hero-discount strong { font-size: 18px; } .section { padding: 65px 0; } .section-title { font-size: 37px; } .products { gap: 9px; } .product-image { height: 190px; } .product-info { padding: 12px; } .product-info h3 { font-size: 15px; } .product-info p { font-size: 11px; line-height: 1.4; min-height: 31px; margin-bottom: 13px; } .product-bottom { align-items: stretch; gap: 8px; flex-direction: column; } .add { width: 100%; min-height: 38px; } .section-head { display: block; } .section-meta { margin-top: 15px; } .steps, .material-points, .project-form { gap: 10px; } .steps { grid-template-columns: 1fr; } .step h3 { font-size: 16px; margin-top: 14px; } .materials-visual { min-height: 270px; } .materials-visual img { min-height: 270px; } .project-form { grid-template-columns: 1fr; } .field.full { grid-column: auto; } .form-note { grid-column: auto; } .footer-top { display: block; } .footer-links { margin-top: 25px; gap: 20px; flex-wrap: wrap; } .floating-cart { right: 14px; bottom: 14px; } .product-modal { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); } .modal-image, .modal-image img { min-height: 205px; height: 205px; } .modal-content { padding: 22px 18px; } .modal-content h2 { font-size: 34px; } .modal-options { gap: 11px; } .modal-option select, .modal-option input { min-height: 43px; } }
+		@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
 	</style>
 </head>
 <body>
+	<a class="skip-link" href="#shop">Aller directement à la boutique</a>
 	<div class="topline">Offre de bienvenue · -10% sur ta première commande avec le code MY3D10 · Livraison offerte dès 60€</div>
 	<header class="shell nav">
 		<a class="brand" href="#top"><i class="brand-mark"></i>My3DPrint</a>
-		<nav class="navlinks"><a href="#shop">Le shop</a><a href="#custom">Sur mesure</a><a href="#about">Notre atelier</a></nav>
+		<nav class="navlinks" aria-label="Navigation principale"><a href="#shop">La boutique</a><a href="#custom">Sur mesure</a><a href="#about">Notre atelier</a></nav>
 		<div class="nav-actions">
 			<button class="icon-btn" aria-label="Rechercher" id="searchBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg></button>
 			<button class="icon-btn" aria-label="Ouvrir le panier" id="cartBtn"><svg viewBox="0 0 24 24"><path d="M3 5h2l2.2 11.5h10.9L21 8H6"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg><span class="cart-count">0</span></button>
@@ -244,7 +322,7 @@
 				<a class="primary" href="#shop">Explorer les pièces <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
 				<p class="hero-note">Vous débutez ? Aucun souci : nous choisissons la matière adaptée à votre projet.</p>
 			</div>
-			<div class="hero-visual"><img src="batarang.png" alt="Batarang mural imprimé en 3D"><div class="hero-discount"><strong>-15%</strong>offre découverte</div><div class="hero-tag">Best-seller<span>Batarang mural</span></div></div>
+			<div class="hero-visual"><img src="batarang.png" alt="Batarang mural imprimé en 3D" width="900" height="700" fetchpriority="high"><div class="hero-discount"><strong>-15%</strong>offre découverte</div><div class="hero-tag">Best-seller<span>Batarang mural</span></div></div>
 		</section>
 		<div class="marquee"><div class="marquee-inner"><span>DESIGN UTILE <b>✦</b></span><span>FABRIQUÉ À LA DEMANDE <b>✦</b></span><span>PENSÉ POUR VOTRE ESPACE <b>✦</b></span><span>DESIGN UTILE <b>✦</b></span><span>FABRIQUÉ À LA DEMANDE <b>✦</b></span><span>PENSÉ POUR VOTRE ESPACE <b>✦</b></span></div></div>
 
@@ -252,9 +330,9 @@
 			<div class="section-head"><h2 class="section-title">La collection <span>My3DPrint.</span></h2><p class="section-meta">Des objets prêts à expédier ou fabriqués à la commande, entre 15€ et 30€ selon la pièce et la personnalisation.</p></div>
 			<div class="filters"><button class="filter active" data-filter="all">Tout voir</button><button class="filter" data-filter="setup">Bureau</button><button class="filter" data-filter="deco">Décoration</button><button class="filter" data-filter="gaming">Accessoires</button><button class="filter" data-filter="utility">Rangement</button></div>
 			<div class="products" id="products">
-				<article class="product" data-category="setup"><div class="product-image"><span class="product-badge">Best-seller</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_manette2.png" alt="Support de manette imprimé en 3D"></div><div class="product-info"><h3>Support de manette</h3><p>Console · Noir ou blanc · personnalisable</p><div class="product-bottom"><span class="price">24,00 €</span><button class="add" data-name="Support de manette" data-price="24" data-image="support_manette2.png">Ajouter</button></div></div></article>
-				<article class="product" data-category="utility"><div class="product-image"><span class="product-badge">Nouveau</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_neo2.png" alt="Support pour drone DJI Neo 2 imprimé en 3D"></div><div class="product-info"><h3>Support DJI Neo 2</h3><p>Accessoire drone · Blanc ou noir</p><div class="product-bottom"><span class="price">29,00 €</span><button class="add" data-name="Support DJI Neo 2" data-price="29" data-image="support_neo2.png">Ajouter</button></div></div></article>
-				<article class="product" data-category="gaming"><div class="product-image"><span class="product-badge">Best-seller · -15%</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="batarang.png" alt="Batarang mural imprimé en 3D"></div><div class="product-info"><h3>Batarang mural</h3><p>Déco · Gravure et couleur au choix</p><div class="product-bottom"><span class="price"><del>22,00 €</del> 18,70 €</span><button class="add" data-name="Batarang mural" data-price="18.7" data-image="batarang.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="setup"><div class="product-image"><span class="product-badge">Best-seller</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_manette2.png" alt="Support de manette imprimé en 3D" loading="lazy" decoding="async" width="700" height="700"></div><div class="product-info"><h3>Support de manette</h3><p>Console · Noir ou blanc · personnalisable</p><div class="product-bottom"><span class="price">24,00 €</span><button class="add" data-name="Support de manette" data-price="24" data-image="support_manette2.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="utility"><div class="product-image"><span class="product-badge">Nouveau</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_neo2.png" alt="Support pour drone DJI Neo 2 imprimé en 3D" loading="lazy" decoding="async" width="700" height="700"></div><div class="product-info"><h3>Support DJI Neo 2</h3><p>Accessoire drone · Blanc ou noir</p><div class="product-bottom"><span class="price">29,00 €</span><button class="add" data-name="Support DJI Neo 2" data-price="29" data-image="support_neo2.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="gaming"><div class="product-image"><span class="product-badge">Best-seller · -15%</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="batarang.png" alt="Batarang mural imprimé en 3D" loading="lazy" decoding="async" width="700" height="700"></div><div class="product-info"><h3>Batarang mural</h3><p>Déco · Gravure et couleur au choix</p><div class="product-bottom"><span class="price"><del>22,00 €</del> 18,70 €</span><button class="add" data-name="Batarang mural" data-price="18.7" data-image="batarang.png">Ajouter</button></div></div></article>
 				<article class="product" data-category="deco"><div class="product-image"><span class="product-badge">Créature articulée</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="dragon_articulé.png" alt="Dragon articulé imprimé en 3D"></div><div class="product-info"><h3>Dragon articulé</h3><p>Déco · Plusieurs couleurs disponibles</p><div class="product-bottom"><span class="price">19,00 €</span><button class="add" data-name="Dragon articulé" data-price="19" data-image="dragon_articulé.png">Ajouter</button></div></div></article>
 				<article class="product" data-category="deco"><div class="product-image"><span class="product-badge">Nouveau</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="loutre_articulé.png" alt="Loutre articulée imprimée en 3D"></div><div class="product-info"><h3>Loutre articulée</h3><p>Déco · Noir, blanc ou sur demande</p><div class="product-bottom"><span class="price">19,00 €</span><button class="add" data-name="Loutre articulée" data-price="19" data-image="loutre_articulé.png">Ajouter</button></div></div></article>
 			</div>
