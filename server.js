@@ -34,6 +34,14 @@ const promotions = { MY3D10: 0.10 };
 app.use(express.json());
 app.use(express.static(__dirname));
 
+app.get('/health', (req, res) => {
+  res.json({
+    ok: true,
+    stripeConfigured: Boolean(stripe),
+    emailConfigured: Boolean(mailer),
+  });
+});
+
 app.post('/send-project-request', upload.array('reference', 5), async (req, res) => {
   if (!mailer) {
     return res.status(503).json({ error: 'Email SMTP is not configured.' });
