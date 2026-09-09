@@ -15,6 +15,9 @@ const mailer = process.env.SMTP_USER && process.env.SMTP_PASS
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
     port: Number(process.env.SMTP_PORT || 465),
     secure: process.env.SMTP_SECURE !== 'false',
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 15000,
     auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
   })
   : null;
@@ -121,6 +124,14 @@ app.post('/create-checkout-session', async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Unable to create Stripe Checkout session.' });
   }
+});
+
+app.use((error, req, res, next) => {
+  if (error) {
+    console.error(error);
+    return res.status(400).json({ error: 'La pièce jointe est invalide ou trop volumineuse.' });
+  }
+  next();
 });
 
 app.listen(port, () => {
