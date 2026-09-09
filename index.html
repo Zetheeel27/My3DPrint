@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="My3DPrint — objets 3D personnalisés, accessoires premium et créations sur mesure fabriqués en France.">
+		<title>My3DPrint — Make it yours</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--ink: #101214;
+			--ink-soft: #1b2021;
+			--paper: #f7f4ed;
+			--muted: #a2a6a3;
+			--line: rgba(255,255,255,.15);
+			--acid: #d8ff55;
+			--cyan: #62d8d1;
+			--orange: #ff765c;
+			--blue: #7e9dff;
+			--white: #fffefb;
+			--serif: 'Syne', sans-serif;
+			--sans: 'Space Grotesk', sans-serif;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body { margin: 0; background: var(--ink); color: var(--white); font-family: var(--sans); font-size: 15px; overflow-x: hidden; }
+		button, input, select { font: inherit; }
+		button { cursor: pointer; }
+		a { color: inherit; text-decoration: none; }
+		.shell { max-width: 1440px; margin: 0 auto; padding: 0 5vw; }
+		.topline { background: #dfe6c6; color: var(--ink); text-align: center; padding: 9px 20px; font-size: 11px; letter-spacing: .11em; text-transform: uppercase; font-weight: 700; }
+		.nav { height: 78px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 7; background: rgba(16,18,20,.92); backdrop-filter: blur(16px); }
+		.brand { font-family: var(--serif); font-size: 23px; font-weight: 800; letter-spacing: -.06em; display: flex; align-items: center; gap: 10px; }
+		.brand-mark { width: 21px; height: 21px; background: var(--acid); display: inline-block; transform: rotate(45deg); position: relative; }
+		.brand-mark:after { content: ''; position: absolute; inset: 5px; background: var(--ink); }
+		.navlinks { display: flex; gap: 34px; color: #d1d4d0; font-size: 13px; }
+		.navlinks a:hover { color: var(--acid); }
+		.nav-actions { display: flex; align-items: center; gap: 20px; }
+		.icon-btn { color: var(--white); background: transparent; border: 0; padding: 5px; position: relative; }
+		.icon-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+		.cart-count { position: absolute; top: -7px; right: -7px; background: var(--orange); color: var(--ink); width: 16px; height: 16px; border-radius: 50%; font-size: 9px; font-weight: 700; display: grid; place-items: center; }
+		.hero { min-height: 580px; padding: 70px 0 80px; display: grid; grid-template-columns: minmax(300px, .8fr) 1.2fr; gap: 6vw; align-items: center; }
+		.eyebrow { color: var(--acid); font-size: 11px; letter-spacing: .17em; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+		.eyebrow:before { content: ''; width: 28px; height: 2px; background: var(--acid); }
+		h1 { font-family: var(--serif); font-size: clamp(50px, 6.5vw, 96px); line-height: .92; letter-spacing: -.075em; margin: 22px 0 25px; max-width: 650px; }
+		h1 em { color: var(--acid); font-style: normal; }
+		.hero-copy { color: #aaaead; line-height: 1.7; max-width: 390px; margin-bottom: 33px; }
+		.primary { border: 0; background: var(--acid); color: var(--ink); padding: 15px 23px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; font-size: 11px; display: inline-flex; align-items: center; gap: 13px; transition: transform .2s, background .2s, box-shadow .2s; box-shadow: 0 0 0 rgba(216,255,85,0); }
+		.primary:hover { transform: translateY(-3px); background: var(--white); box-shadow: 0 12px 28px rgba(216,255,85,.16); }
+		.primary svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+		.hero-note { color: #777b7c; font-size: 11px; margin-top: 18px; }
+		.hero-visual { min-height: 415px; position: relative; overflow: hidden; background: #24272a; }
+		.hero-visual img { width: 100%; height: 100%; min-height: 415px; object-fit: cover; filter: saturate(.8); opacity: .86; }
+		.hero-visual:after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,19,22,.68), transparent 55%), linear-gradient(135deg, rgba(126,157,255,.22), transparent 45%); pointer-events: none; }
+		.hero-tag { position: absolute; z-index: 2; right: 22px; bottom: 21px; background: var(--acid); color: var(--ink); padding: 12px 15px; font-size: 11px; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+		.hero-tag span { display: block; font-size: 20px; margin-top: 4px; font-family: var(--serif); }
+		.hero-discount { position: absolute; z-index: 2; left: 22px; top: 21px; background: var(--orange); color: var(--ink); padding: 10px 12px; font-size: 11px; font-weight: 700; line-height: 1.15; text-transform: uppercase; }
+		.hero-discount strong { display: block; font-family: var(--serif); font-size: 21px; letter-spacing: -.04em; }
+		.marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; color: #686d70; padding: 18px 0; font-family: var(--serif); font-weight: 700; font-size: 13px; letter-spacing: .06em; }
+		.marquee-inner { display: inline-flex; gap: 50px; animation: move 26s linear infinite; }
+		.marquee b { color: var(--acid); font-size: 17px; }
+		@keyframes move { to { transform: translateX(-30%); } }
+		.section { padding: 90px 0; }
+		.section-head { display: flex; justify-content: space-between; align-items: end; margin-bottom: 28px; }
+		.section-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 54px); letter-spacing: -.065em; line-height: .95; margin: 0; }
+		.section-title span { color: var(--acid); }
+		.section-meta { color: var(--muted); font-size: 12px; max-width: 260px; line-height: 1.5; }
+		.filters { display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
+		.filter { background: transparent; border: 1px solid #4a5051; color: #b7bcba; padding: 9px 13px; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; transition: background .2s, border-color .2s, color .2s; }
+		.filter.active, .filter:hover { border-color: var(--acid); color: var(--acid); }
+		.products { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+		.product { background: var(--ink-soft); min-width: 0; position: relative; transition: transform .25s, box-shadow .25s; }
+		.product:hover { transform: translateY(-6px); box-shadow: 0 18px 35px rgba(0,0,0,.24); }
+		.product-image { height: 270px; position: relative; overflow: hidden; background: #292d2e; }
+		.product-image:after { content: 'Voir le produit'; position: absolute; left: 14px; bottom: 14px; color: var(--white); background: rgba(16,18,20,.78); padding: 8px 10px; font-size: 10px; text-transform: uppercase; letter-spacing: .08em; opacity: 0; transform: translateY(5px); transition: opacity .25s, transform .25s; pointer-events: none; }
+		.product:hover .product-image:after { opacity: 1; transform: translateY(0); }
+		.product-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s; }
+		.product:hover .product-image img { transform: scale(1.06); }
+		.product-badge { position: absolute; z-index: 2; top: 12px; left: 12px; background: var(--acid); color: var(--ink); font-size: 10px; padding: 6px 8px; font-weight: 700; text-transform: uppercase; }
+		.wish { position: absolute; z-index: 3; right: 11px; top: 10px; background: rgba(17,19,22,.82); border: 0; color: white; width: 29px; height: 29px; display: grid; place-items: center; }
+		.wish svg { width: 15px; stroke: currentColor; fill: none; }
+		.product-info { padding: 16px; }
+		.product-info h3 { font-family: var(--serif); font-size: 18px; letter-spacing: -.04em; margin: 0 0 7px; }
+		.product-info p { color: #858a8b; font-size: 12px; margin: 0 0 18px; }
+		.product-bottom { display: flex; justify-content: space-between; align-items: center; }
+		.price { color: var(--acid); font-weight: 700; }
+		.add { color: var(--white); border: 1px solid #484c4d; background: transparent; font-size: 11px; padding: 8px 10px; text-transform: uppercase; }
+		.add:hover { border-color: var(--acid); color: var(--acid); background: rgba(216,255,85,.06); }
+		.custom { background: var(--paper); color: var(--ink); display: grid; grid-template-columns: 1fr 1fr; gap: 70px; padding: 75px 7%; position: relative; overflow: hidden; }
+		.custom:before { content: 'CUSTOM'; position: absolute; font-family: var(--serif); color: rgba(17,19,22,.04); font-size: 190px; font-weight: 800; right: -40px; bottom: -45px; pointer-events: none; }
+		.custom .eyebrow { color: #5f6919; }
+		.custom .eyebrow:before { background: #5f6919; }
+		.custom h2 { font-family: var(--serif); font-size: clamp(35px, 4vw, 61px); line-height: .94; letter-spacing: -.07em; margin: 17px 0; max-width: 500px; }
+		.custom-copy { color: #636666; max-width: 430px; line-height: 1.7; margin-bottom: 24px; }
+		.custom .primary { background: var(--ink); color: var(--acid); }
+		.custom .primary:hover { background: #35383b; }
+		.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-self: center; position: relative; z-index: 1; }
+		.step { border-top: 2px solid var(--ink); padding-top: 16px; }
+		.step-num { font-family: var(--serif); color: #9ca31e; font-size: 12px; }
+		.step h3 { font-family: var(--serif); font-size: 19px; margin: 27px 0 9px; letter-spacing: -.04em; }
+		.step p { color: #6b6f6f; font-size: 12px; line-height: 1.5; }
+		.materials { background: #24282b; padding: 78px 7%; display: grid; grid-template-columns: .8fr 1.2fr; gap: 70px; align-items: center; }
+		.materials-visual { min-height: 390px; position: relative; overflow: hidden; background: #17191b; }
+		.materials-visual img { width: 100%; height: 100%; min-height: 390px; object-fit: cover; filter: saturate(.65) contrast(1.05); }
+		.materials-visual:after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(17,19,22,.6), transparent 60%); }
+		.material-label { position: absolute; z-index: 1; left: 18px; bottom: 18px; color: var(--acid); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; font-weight: 700; }
+		.materials h2 { font-family: var(--serif); font-size: clamp(35px, 4vw, 61px); line-height: .94; letter-spacing: -.07em; margin: 17px 0; max-width: 550px; }
+		.materials h2 span { color: var(--cyan); }
+		.materials-copy { color: #a9adae; line-height: 1.7; max-width: 490px; margin-bottom: 25px; }
+		.material-points { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 500px; }
+		.material-point { border-top: 1px solid var(--line); padding-top: 13px; }
+		.material-point strong { display: block; color: var(--white); font-size: 14px; margin-bottom: 6px; }
+		.material-point p { color: #858b8d; font-size: 12px; line-height: 1.5; margin: 0; }
+		.request { background: var(--paper); color: var(--ink); padding: 78px 7%; }
+		.request-layout { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; align-items: start; }
+		.request h2 { font-family: var(--serif); font-size: clamp(35px, 4vw, 61px); line-height: .94; letter-spacing: -.07em; margin: 17px 0; }
+		.request-copy { color: #626665; line-height: 1.7; max-width: 370px; }
+		.project-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; position: relative; z-index: 1; }
+		.field { display: flex; flex-direction: column; gap: 7px; }
+		.field.full { grid-column: 1 / -1; }
+		.field label { color: #646765; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+		.field input, .field select, .field textarea { border: 1px solid #d0d1cb; background: #faf9f4; color: var(--ink); padding: 13px 12px; outline: none; border-radius: 0; }
+		.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--ink); box-shadow: 3px 3px 0 var(--acid); }
+		.field textarea { min-height: 105px; resize: vertical; }
+		.file-field { border: 1px dashed #b9bbb4; padding: 13px; color: #777b77; font-size: 12px; display: flex; flex-direction: column; gap: 9px; transition: border-color .2s, background .2s; }
+		.file-field:hover, .file-field.has-file { border-color: var(--ink); background: #f5f4ee; }
+		.file-label { display: flex; align-items: center; gap: 12px; color: var(--ink); cursor: pointer; }
+		.file-icon { width: 31px; height: 31px; display: grid; place-items: center; background: var(--acid); color: var(--ink); flex: none; }
+		.file-icon svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+		.file-label strong { display: block; font-size: 12px; margin-bottom: 3px; }
+		.file-label span { display: block; color: #777b77; font-size: 10px; }
+		.file-field input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+		.file-name { color: #636765; font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+		.project-form .primary { justify-self: start; background: var(--ink); color: var(--acid); margin-top: 2px; }
+		.project-form .primary:hover { background: #35383b; }
+		.form-note { grid-column: 1 / -1; color: #777b77; font-size: 11px; margin: 0; }
+		.reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s ease; }
+		.reveal.visible { opacity: 1; transform: translateY(0); }
+		.reveal-delay-1 { transition-delay: .12s; }
+		.reveal-delay-2 { transition-delay: .22s; }
+		.product, .service, .step, .material-point { transition: transform .35s ease, border-color .35s ease, background .35s ease; }
+		.service:hover { transform: translateY(-4px); }
+		.material-point:hover { border-color: var(--acid); transform: translateY(-3px); }
+		.brand { transition: color .25s ease; }
+		.brand:hover { color: var(--acid); }
+		.studio-note { padding: 92px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8vw; align-items: end; }
+		.studio-note h2 { font-family: var(--serif); font-size: clamp(34px, 4vw, 58px); line-height: .96; letter-spacing: -.07em; margin: 18px 0 0; }
+		.studio-note h2 em { color: var(--acid); font-style: normal; }
+		.studio-note-copy { color: #9b9f9f; line-height: 1.8; max-width: 460px; margin: 0; }
+		.studio-stats { display: flex; gap: 35px; margin-top: 28px; }
+		.studio-stat { border-left: 1px solid var(--acid); padding-left: 12px; }
+		.studio-stat strong { display: block; color: var(--white); font-family: var(--serif); font-size: 21px; }
+		.studio-stat span { color: #777c7d; font-size: 11px; }
+		.faq { padding: 78px 0; border-top: 1px solid var(--line); }
+		.faq-grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: 70px; }
+		.faq h2 { font-family: var(--serif); font-size: clamp(35px, 4vw, 61px); line-height: .94; letter-spacing: -.07em; margin: 17px 0; }
+		.faq h2 span { color: var(--acid); }
+		.faq-list details { border-top: 1px solid #363a3c; padding: 18px 0; }
+		.faq-list details:last-child { border-bottom: 1px solid #363a3c; }
+		.faq-list summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 20px; font-family: var(--serif); font-size: 16px; }
+		.faq-list summary::-webkit-details-marker { display: none; }
+		.faq-list summary:after { content: '+'; color: var(--acid); font-family: var(--sans); font-size: 20px; }
+		.faq-list details[open] summary:after { content: '−'; }
+		.faq-list p { color: #969b9c; line-height: 1.7; font-size: 13px; max-width: 670px; margin: 14px 0 0; }
+		.service-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 35px; border-bottom: 1px solid var(--line); padding: 24px 0 38px; }
+		.service { display: flex; gap: 14px; align-items: start; }
+		.service svg { color: var(--acid); width: 21px; flex: none; stroke: currentColor; fill: none; stroke-width: 1.5; }
+		.service strong { display: block; font-size: 13px; margin-bottom: 5px; }
+		.service small { color: var(--muted); font-size: 11px; }
+		footer { padding: 48px 0 35px; color: #7a7e80; }
+		.footer-top { display: flex; justify-content: space-between; gap: 25px; }
+		.footer-top p { max-width: 280px; line-height: 1.5; font-size: 12px; }
+		.footer-links { display: flex; gap: 35px; font-size: 12px; }
+		.footer-links a:hover { color: var(--acid); }
+		.copyright { border-top: 1px solid var(--line); padding-top: 18px; margin-top: 35px; font-size: 10px; display: flex; justify-content: space-between; }
+		.overlay { position: fixed; inset: 0; background: rgba(0,0,0,.62); opacity: 0; visibility: hidden; transition: .25s; z-index: 8; }
+		.overlay.open { opacity: 1; visibility: visible; }
+		.drawer { position: fixed; z-index: 9; top: 0; right: 0; height: 100%; width: min(420px, 92vw); background: var(--paper); color: var(--ink); transform: translateX(100%); transition: transform .3s; padding: 28px; display: flex; flex-direction: column; }
+		.drawer.open { transform: translateX(0); }
+		.drawer-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d3d3ce; padding-bottom: 19px; }
+		.drawer h2 { font-family: var(--serif); margin: 0; font-size: 25px; }
+		.close { background: none; border: 0; font-size: 22px; }
+		.cart-items { flex: 1; padding: 15px 0; overflow: auto; }
+		.cart-item { display: flex; gap: 13px; border-bottom: 1px solid #d3d3ce; padding: 13px 0; }
+		.cart-item img { width: 63px; height: 63px; object-fit: cover; }
+		.cart-item h4 { margin: 0 0 6px; font-family: var(--serif); font-size: 14px; }
+		.cart-item span { font-size: 12px; color: #727471; }
+		.empty { color: #747774; padding: 45px 0; text-align: center; font-size: 13px; }
+		.drawer-total { border-top: 1px solid #c4c6be; padding-top: 17px; display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 16px; }
+		.drawer .primary { width: 100%; justify-content: center; background: var(--ink); color: var(--acid); }
+		.toast { position: fixed; left: 50%; bottom: 25px; transform: translate(-50%, 20px); background: var(--acid); color: var(--ink); padding: 13px 18px; font-size: 12px; font-weight: 700; opacity: 0; transition: .25s; z-index: 11; pointer-events: none; }
+		.toast.show { opacity: 1; transform: translate(-50%, 0); }
+		.floating-cart { position: fixed; z-index: 6; right: 24px; bottom: 22px; border: 1px solid var(--acid); background: var(--acid); color: var(--ink); padding: 13px 16px; display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; box-shadow: 0 12px 28px rgba(0,0,0,.25); transition: transform .2s, background .2s; }
+		.floating-cart:hover { transform: translateY(-3px); background: var(--white); }
+		.floating-cart svg { width: 17px; height: 17px; stroke: currentColor; fill: none; stroke-width: 1.7; }
+		.floating-cart span { min-width: 19px; height: 19px; display: grid; place-items: center; background: var(--ink); color: var(--acid); border-radius: 50%; font-size: 10px; }
+		.product-modal { position: fixed; z-index: 10; top: 50%; left: 50%; width: min(860px, 92vw); max-height: 90vh; overflow: auto; background: var(--paper); color: var(--ink); transform: translate(-50%, -46%) scale(.97); opacity: 0; visibility: hidden; transition: opacity .25s, transform .25s, visibility .25s; display: grid; grid-template-columns: .95fr 1.05fr; }
+		.product-modal.open { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+		.modal-image { min-height: 450px; background: #ddd8cd; }
+		.modal-image img { width: 100%; height: 100%; min-height: 450px; object-fit: cover; }
+		.modal-content { padding: 34px; position: relative; }
+		.modal-close { position: absolute; top: 16px; right: 18px; border: 0; background: none; color: var(--ink); font-size: 25px; line-height: 1; }
+		.modal-kicker { color: #68733d; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; }
+		.modal-content h2 { font-family: var(--serif); font-size: clamp(30px, 4vw, 48px); line-height: .95; letter-spacing: -.06em; margin: 14px 0; max-width: 360px; }
+		.modal-description { color: #656a66; font-size: 13px; line-height: 1.7; margin-bottom: 22px; }
+		.modal-price { color: #657328; font-family: var(--serif); font-size: 24px; font-weight: 700; }
+		.modal-options { border-top: 1px solid #d6d3cb; margin-top: 24px; padding-top: 18px; display: grid; gap: 15px; }
+		.modal-option { display: grid; gap: 7px; }
+		.modal-option label { color: #676b68; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+		.modal-option select, .modal-option input { border: 1px solid #c9c8c1; background: #fffefa; padding: 11px; color: var(--ink); }
+		.modal-delivery { color: #747873; font-size: 11px; line-height: 1.5; margin: 18px 0; }
+		.modal-add { width: 100%; justify-content: center; background: var(--ink); color: var(--acid); }
+		.modal-add:hover { background: #303536; }
+		@media (max-width: 850px) { .navlinks { display: none; } .hero { grid-template-columns: 1fr; padding-top: 55px; } .hero-visual { min-height: 330px; } .hero-visual img { min-height: 330px; } .products { grid-template-columns: repeat(2, 1fr); } .custom, .materials, .request-layout, .faq-grid { grid-template-columns: 1fr; gap: 35px; padding: 55px 7%; } .studio-note { grid-template-columns: 1fr; gap: 28px; padding: 65px 0; } .service-strip { grid-template-columns: 1fr; gap: 19px; } }
+		@media (max-width: 850px) { .product-modal { grid-template-columns: 1fr; } .modal-image, .modal-image img { min-height: 250px; height: 250px; } .modal-content { padding: 26px; } }
+		@media (max-width: 500px) { .shell { padding: 0 21px; } .nav { height: 68px; } .hero { min-height: auto; padding: 55px 0; } h1 { font-size: 54px; } .hero-visual { min-height: 270px; } .hero-visual img { min-height: 270px; } .section { padding: 65px 0; } .products { gap: 9px; } .product-image { height: 190px; } .product-info { padding: 12px; } .product-info h3 { font-size: 15px; } .product-info p { font-size: 11px; margin-bottom: 13px; } .product-bottom { align-items: end; gap: 5px; flex-direction: column; } .add { width: 100%; } .section-head { display: block; } .section-meta { margin-top: 15px; } .steps, .material-points, .project-form { gap: 10px; } .steps { grid-template-columns: 1fr; } .step h3 { font-size: 16px; margin-top: 14px; } .materials-visual { min-height: 270px; } .materials-visual img { min-height: 270px; } .project-form { grid-template-columns: 1fr; } .field.full { grid-column: auto; } .form-note { grid-column: auto; } .footer-top { display: block; } .footer-links { margin-top: 25px; gap: 20px; flex-wrap: wrap; } .floating-cart { right: 14px; bottom: 14px; } }
+	</style>
+</head>
+<body>
+	<div class="topline">Offre de bienvenue · -10% sur ta première commande avec le code MY3D10 · Livraison offerte dès 60€</div>
+	<header class="shell nav">
+		<a class="brand" href="#top"><i class="brand-mark"></i>My3DPrint</a>
+		<nav class="navlinks"><a href="#shop">Le shop</a><a href="#custom">Sur mesure</a><a href="#about">Notre atelier</a></nav>
+		<div class="nav-actions">
+			<button class="icon-btn" aria-label="Rechercher" id="searchBtn"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg></button>
+			<button class="icon-btn" aria-label="Ouvrir le panier" id="cartBtn"><svg viewBox="0 0 24 24"><path d="M3 5h2l2.2 11.5h10.9L21 8H6"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg><span class="cart-count">0</span></button>
+		</div>
+	</header>
+
+	<main id="top">
+		<section class="shell hero">
+			<div>
+				<div class="eyebrow">Objets 3D · design & précision</div>
+				<h1>VOS IDÉES.<br><em>IMPRIMÉES EN 3D.</em></h1>
+				<p class="hero-copy">Objets personnalisés, accessoires utiles et créations sur mesure : chaque pièce est conçue, imprimée et vérifiée avec soin dans notre atelier.</p>
+				<a class="primary" href="#shop">Explorer les pièces <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+				<p class="hero-note">Vous débutez ? Aucun souci : nous choisissons la matière adaptée à votre projet.</p>
+			</div>
+			<div class="hero-visual"><img src="batarang.png" alt="Batarang mural imprimé en 3D"><div class="hero-discount"><strong>-15%</strong>offre découverte</div><div class="hero-tag">Best-seller<span>Batarang mural</span></div></div>
+		</section>
+		<div class="marquee"><div class="marquee-inner"><span>DESIGN UTILE <b>✦</b></span><span>FABRIQUÉ À LA DEMANDE <b>✦</b></span><span>PENSÉ POUR VOTRE ESPACE <b>✦</b></span><span>DESIGN UTILE <b>✦</b></span><span>FABRIQUÉ À LA DEMANDE <b>✦</b></span><span>PENSÉ POUR VOTRE ESPACE <b>✦</b></span></div></div>
+
+		<section class="shell section" id="shop">
+			<div class="section-head"><h2 class="section-title">La collection <span>My3DPrint.</span></h2><p class="section-meta">Des objets prêts à expédier ou fabriqués à la commande, entre 15€ et 30€ selon la pièce et la personnalisation.</p></div>
+			<div class="filters"><button class="filter active" data-filter="all">Tout voir</button><button class="filter" data-filter="setup">Bureau</button><button class="filter" data-filter="deco">Décoration</button><button class="filter" data-filter="gaming">Accessoires</button><button class="filter" data-filter="utility">Rangement</button></div>
+			<div class="products" id="products">
+				<article class="product" data-category="setup"><div class="product-image"><span class="product-badge">Best-seller</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_manette2.png" alt="Support de manette imprimé en 3D"></div><div class="product-info"><h3>Support de manette</h3><p>Console · Noir ou blanc · personnalisable</p><div class="product-bottom"><span class="price">24,00 €</span><button class="add" data-name="Support de manette" data-price="24" data-image="support_manette2.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="utility"><div class="product-image"><span class="product-badge">Nouveau</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="support_neo2.png" alt="Support pour drone DJI Neo 2 imprimé en 3D"></div><div class="product-info"><h3>Support DJI Neo 2</h3><p>Accessoire drone · Blanc ou noir</p><div class="product-bottom"><span class="price">29,00 €</span><button class="add" data-name="Support DJI Neo 2" data-price="29" data-image="support_neo2.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="gaming"><div class="product-image"><span class="product-badge">Best-seller · -15%</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="batarang.png" alt="Batarang mural imprimé en 3D"></div><div class="product-info"><h3>Batarang mural</h3><p>Déco · Gravure et couleur au choix</p><div class="product-bottom"><span class="price"><del>22,00 €</del> 18,70 €</span><button class="add" data-name="Batarang mural" data-price="18.7" data-image="batarang.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="deco"><div class="product-image"><span class="product-badge">Créature articulée</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="dragon_articulé.png" alt="Dragon articulé imprimé en 3D"></div><div class="product-info"><h3>Dragon articulé</h3><p>Déco · Plusieurs couleurs disponibles</p><div class="product-bottom"><span class="price">19,00 €</span><button class="add" data-name="Dragon articulé" data-price="19" data-image="dragon_articulé.png">Ajouter</button></div></div></article>
+				<article class="product" data-category="deco"><div class="product-image"><span class="product-badge">Nouveau</span><button class="wish" aria-label="Ajouter aux favoris"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.3-8.8 10-8.8 10s-8.8-4.7-8.8-10A4.7 4.7 0 0 1 12 6.3a4.7 4.7 0 0 1 8.8 2.5Z"></path></svg></button><img src="loutre_articulé.png" alt="Loutre articulée imprimée en 3D"></div><div class="product-info"><h3>Loutre articulée</h3><p>Déco · Noir, blanc ou sur demande</p><div class="product-bottom"><span class="price">19,00 €</span><button class="add" data-name="Loutre articulée" data-price="19" data-image="loutre_articulé.png">Ajouter</button></div></div></article>
+			</div>
+		</section>
+
+		<section class="custom" id="custom"><div><div class="eyebrow">Création sur mesure</div><h2>Votre idée.<br>Notre matière.</h2><p class="custom-copy">Un logo, une pièce difficile à trouver ou un cadeau qui a du sens ? Présentez-nous votre idée. Nous la transformons en objet réel, de la modélisation à la dernière couche.</p><a class="primary" href="#project-form">Décrire votre projet <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div><div class="steps"><div class="step"><span class="step-num">01 —</span><h3>Vous imaginez</h3><p>Un croquis, une référence ou simplement une idée.</p></div><div class="step"><span class="step-num">02 —</span><h3>Nous modélisons</h3><p>Un échange simple, puis une proposition claire.</p></div><div class="step"><span class="step-num">03 —</span><h3>Vous recevez</h3><p>Une pièce unique, imprimée et finie avec soin.</p></div></div></section>
+
+		<section class="shell studio-note"><div><div class="eyebrow">L'esprit My3DPrint</div><h2>Des objets utiles, <em>avec une présence.</em></h2></div><div><p class="studio-note-copy">My3DPrint est né d'une envie simple : rendre les objets du quotidien plus personnels. Une pièce peut organiser un bureau, accompagner un appareil, habiller une étagère ou devenir un cadeau que l'on garde. Chaque modèle est choisi, ajusté et imprimé avec attention.</p><div class="studio-stats"><div class="studio-stat"><strong>01 an</strong><span>d'expérimentation</span></div><div class="studio-stat"><strong>PLA + PETG</strong><span>selon ton usage</span></div><div class="studio-stat"><strong>25 cm</strong><span>par côté sur l'A1</span></div></div></div></section>
+
+		<section class="request" id="project-form"><div class="request-layout"><div><div class="eyebrow" style="color:#5f6919">Parlons de ton projet</div><h2>Une idée à<br>matérialiser ?</h2><p class="request-copy">Même si tu n'as qu'une phrase ou une photo, c'est suffisant pour commencer. On te répond avec une première orientation et un prix estimatif. Avant toute impression, on échange avec toi par email ou téléphone pour tout confirmer.</p></div><form class="project-form" id="customForm"><div class="field"><label for="name">Ton prénom</label><input id="name" name="name" required placeholder="Alex"></div><div class="field"><label for="email">Ton email</label><input id="email" name="email" type="email" required placeholder="alex@email.com"></div><div class="field"><label for="phone">Ton téléphone</label><input id="phone" name="phone" type="tel" required placeholder="06 00 00 00 00"></div><div class="field"><label for="project-type">Type de projet</label><select id="project-type" name="type"><option>Objet déco</option><option>Accessoire gaming / setup</option><option>Pièce utile / rangement</option><option>Support DJI / accessoire tech</option><option>Figurine ou créature articulée</option><option>Je ne sais pas encore</option></select></div><div class="field"><label for="budget">Budget indicatif</label><select id="budget" name="budget"><option>Je ne sais pas encore</option><option>15 à 30 €</option><option>30 à 60 €</option><option>Plus de 60 €</option></select></div><div class="field"><label for="dimensions">Dimensions souhaitées</label><input id="dimensions" name="dimensions" placeholder="Ex. 18 × 12 × 8 cm"></div><div class="field full"><label for="message">Ton idée</label><textarea id="message" name="message" required placeholder="Décris ton besoin, les dimensions, les couleurs ou l'utilisation prévue..."></textarea></div><div class="field full file-field" id="fileDrop"><label class="file-label" for="reference"><span class="file-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M5 14v5h14v-5"></path></svg></span><span><strong>Ajouter des références</strong><span>Photos, croquis ou PDF · plusieurs fichiers possibles</span></span></label><input id="reference" name="reference" type="file" accept="image/*,.pdf" multiple><span class="file-name" id="fileName">Aucun fichier sélectionné</span></div><p class="form-note">Réponse sous 1 à 2 jours ouvrés · devis confirmé avant fabrication · aucune connaissance technique nécessaire.</p><button class="primary" type="submit">Envoyer ma demande <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></form></div></section>
+
+		<section class="shell faq" id="faq"><div class="faq-grid"><div><div class="eyebrow">Questions fréquentes</div><h2>Simple à<br><span>commander.</span></h2></div><div class="faq-list"><details><summary>Je ne connais rien au PLA ou au PETG, c'est un problème ?</summary><p>Pas du tout. Tu nous expliques l'usage de ton objet et nous choisissons le filament le plus adapté. Tu n'as aucune décision technique à prendre.</p></details><details><summary>Combien coûte une personnalisation ?</summary><p>Les pièces courantes sont généralement entre 15€ et 30€. Une personnalisation simple est incluse quand elle concerne un objet du catalogue. Nous confirmons toujours le prix avant fabrication.</p></details><details><summary>Livrez-vous en dehors de la France ?</summary><p>Oui, nous expédions partout en Europe. Les frais de livraison sont calculés selon la destination et restent à la charge du client. La livraison est offerte à partir de 60€.</p></details><details><summary>Quel est le délai de fabrication ?</summary><p>Un objet classique est généralement préparé sous 1 jour. Une création sur mesure demande environ 3 jours après validation du modèle et du prix.</p></details><details><summary>Que se passe-t-il si mon colis arrive abîmé ?</summary><p>Contacte-nous avec des photos. Nous trouverons une solution : nouvelle impression ou remboursement selon la situation.</p></details></div></div></section>
+
+		<section class="shell" id="about"><div class="service-strip"><div class="service"><svg viewBox="0 0 24 24"><path d="M3 7h11v11H3zM14 10h4l3 3v5h-7zM7 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path></svg><div><strong>Europe entière</strong><small>Livraison suivie, frais calculés selon la destination</small></div></div><div class="service"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V6l-8-3Zm-3 9 2 2 4-4"></path></svg><div><strong>Fabriqué à la demande</strong><small>PLA ou PETG choisi pour ton usage</small></div></div><div class="service"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0 2 5M20 5v6h-6"></path></svg><div><strong>Zakode répond</strong><small>zakode03@gmail.com · 07 59 32 76 57</small></div></div></div></section>
+	</main>
+	<footer class="shell"><div class="footer-top"><div><a class="brand" href="#top"><i class="brand-mark"></i>My3DPrint</a><p>Des objets personnalisés qui donnent du caractère à ton espace, imprimés avec précision en France.</p></div><div class="footer-links"><a href="#shop">Boutique</a><a href="#custom">Sur mesure</a><a href="#faq">FAQ</a><a href="mailto:zakode03@gmail.com">Email</a><a href="tel:0759327657">07 59 32 76 57</a></div></div><div class="copyright"><span>© 2026 My3DPrint</span><span>Offre bienvenue : MY3D10</span></div></footer>
+	<div class="overlay" id="overlay"></div><aside class="drawer" id="drawer"><div class="drawer-head"><h2>Votre panier</h2><button class="close" id="closeCart" aria-label="Fermer">×</button></div><div class="cart-items" id="cartItems"><div class="empty">Votre panier est encore vide.<br>Découvrez la collection ci-dessus.</div></div><div class="drawer-total"><span>Total</span><span id="cartTotal">0,00 €</span></div><button class="primary" id="checkout">Passer la commande <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></aside><button class="floating-cart" id="floatingCart" aria-label="Ouvrir le panier"><svg viewBox="0 0 24 24"><path d="M3 5h2l2.2 11.5h10.9L21 8H6"></path><circle cx="9" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>Panier <span>0</span></button><section class="product-modal" id="productModal" aria-hidden="true"><div class="modal-image"><img id="modalImage" src="" alt=""></div><div class="modal-content"><button class="modal-close" id="closeProduct" aria-label="Fermer">×</button><div class="modal-kicker">Détails du produit</div><h2 id="modalTitle"></h2><p class="modal-description" id="modalDescription"></p><div class="modal-price" id="modalPrice"></div><div class="modal-options"><div class="modal-option"><label for="modalColor">Couleur</label><select id="modalColor"><option>Noir</option><option>Blanc</option><option>Autre couleur sur demande</option></select></div><div class="modal-option"><label for="modalQuantity">Quantité</label><input id="modalQuantity" type="number" min="1" max="20" value="1"></div><div class="modal-option"><label for="modalDelivery">Livraison</label><select id="modalDelivery"><option>France · frais calculés au paiement</option><option>Europe · frais calculés au paiement</option><option>Retrait local · sur rendez-vous</option></select></div></div><p class="modal-delivery">Fabrication à la commande selon disponibilité. Le délai et les frais de livraison sont confirmés avant validation.</p><button class="primary modal-add" id="modalAdd">Ajouter au panier <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div></section><div class="toast" id="toast">Ajouté au panier</div>
+	<script>
+		const cart = [];
+		const drawer = document.querySelector('#drawer');
+		const overlay = document.querySelector('#overlay');
+		const count = document.querySelector('.cart-count');
+		const items = document.querySelector('#cartItems');
+		const total = document.querySelector('#cartTotal');
+		const toast = document.querySelector('#toast');
+		const floatingCount = document.querySelector('#floatingCart span');
+		const productModal = document.querySelector('#productModal');
+		let activeProduct = null;
+		const setDrawer = (open) => { drawer.classList.toggle('open', open); overlay.classList.toggle('open', open); };
+		const setProductModal = (open) => { productModal.classList.toggle('open', open); productModal.setAttribute('aria-hidden', String(!open)); overlay.classList.toggle('open', open); };
+		const notify = (message) => { toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2100); };
+		function renderCart() {
+			const itemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+			count.textContent = itemCount;
+			floatingCount.textContent = itemCount;
+			if (!cart.length) { items.innerHTML = '<div class="empty">Ton panier est encore vide.<br>Le prochain upgrade est juste au-dessus.</div>'; total.textContent = '0,00 €'; return; }
+			items.innerHTML = cart.map((item, index) => `<div class="cart-item"><img src="${item.image}" alt=""><div><h4>${item.name}</h4><span>${item.quantity} × ${item.price.toFixed(2).replace('.', ',')} € · ${item.color}</span><button data-remove="${index}" style="display:block;border:0;background:none;padding:7px 0 0;color:#8a8b86;font-size:10px">Retirer</button></div></div>`).join('');
+			total.textContent = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2).replace('.', ',') + ' €';
+		}
+		document.querySelectorAll('.add').forEach(button => button.addEventListener('click', () => { cart.push({ name: button.dataset.name, price: Number(button.dataset.price), image: button.dataset.image, quantity: 1, color: 'Noir' }); renderCart(); notify(`${button.dataset.name} ajouté au panier`); }));
+		document.querySelector('#cartBtn').addEventListener('click', () => setDrawer(true));
+		document.querySelector('#floatingCart').addEventListener('click', () => setDrawer(true));
+		document.querySelector('#closeCart').addEventListener('click', () => setDrawer(false));
+		overlay.addEventListener('click', () => { setDrawer(false); setProductModal(false); });
+		items.addEventListener('click', event => { const index = event.target.dataset.remove; if (index !== undefined) { cart.splice(index, 1); renderCart(); } });
+		document.querySelector('#checkout').addEventListener('click', async () => { if (!cart.length) { notify('Ajoutez une pièce avant de commander'); return; } const checkout = document.querySelector('#checkout'); checkout.disabled = true; checkout.textContent = 'Ouverture du paiement...'; try { const response = await fetch('/create-checkout-session', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ items: cart }) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Paiement indisponible'); window.location.href = result.url; } catch (error) { checkout.disabled = false; checkout.innerHTML = 'Passer la commande <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>'; notify('Stripe sera disponible après configuration du serveur'); } });
+		document.querySelectorAll('.filter').forEach(filter => filter.addEventListener('click', () => { document.querySelectorAll('.filter').forEach(item => item.classList.remove('active')); filter.classList.add('active'); document.querySelectorAll('.product').forEach(product => { product.style.display = filter.dataset.filter === 'all' || product.dataset.category === filter.dataset.filter ? '' : 'none'; }); }));
+		document.querySelectorAll('.wish').forEach(button => button.addEventListener('click', () => { button.style.color = button.style.color ? '' : 'var(--orange)'; notify(button.style.color ? 'Ajouté aux favoris' : 'Retiré des favoris'); }));
+		document.querySelectorAll('.product').forEach(product => product.addEventListener('click', event => { if (event.target.closest('button')) return; const priceText = product.querySelector('.price').textContent.replace(',', '.').replace(/[^0-9.]/g, ''); activeProduct = { name: product.querySelector('h3').textContent, description: product.querySelector('.product-info p').textContent, price: Number(priceText), image: product.querySelector('.product-image img').getAttribute('src') }; document.querySelector('#modalTitle').textContent = activeProduct.name; document.querySelector('#modalDescription').textContent = activeProduct.description + '. Personnalisation possible sur demande.'; document.querySelector('#modalPrice').textContent = activeProduct.price.toFixed(2).replace('.', ',') + ' €'; document.querySelector('#modalImage').src = activeProduct.image; document.querySelector('#modalImage').alt = activeProduct.name; document.querySelector('#modalQuantity').value = 1; setDrawer(false); setProductModal(true); }));
+		document.querySelector('#closeProduct').addEventListener('click', () => setProductModal(false));
+		document.querySelector('#modalAdd').addEventListener('click', () => { if (!activeProduct) return; const quantity = Math.max(1, Number(document.querySelector('#modalQuantity').value) || 1); const color = document.querySelector('#modalColor').value; const delivery = document.querySelector('#modalDelivery').value; cart.push({ ...activeProduct, quantity, color, delivery }); renderCart(); setProductModal(false); notify(`${activeProduct.name} ajouté au panier`); });
+		document.querySelector('#searchBtn').addEventListener('click', () => { document.querySelector('#shop').scrollIntoView(); notify('Utilise les catégories pour trouver ta pièce'); });
+		document.querySelector('#customForm').addEventListener('submit', async event => { event.preventDefault(); const form = event.target; const submit = form.querySelector('button[type="submit"]'); const name = document.querySelector('#name').value.trim(); submit.disabled = true; submit.textContent = 'Envoi en cours...'; try { const response = await fetch('/send-project-request', { method: 'POST', body: new FormData(form) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || 'Erreur'); notify('Demande envoyée à My3DPrint'); form.reset(); document.querySelector('#fileName').textContent = 'Aucun fichier sélectionné'; document.querySelector('#fileDrop').classList.remove('has-file'); } catch (error) { notify('Impossible d’envoyer la demande pour le moment'); } finally { submit.disabled = false; submit.innerHTML = 'Envoyer ma demande <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>'; } });
+		document.querySelector('#reference').addEventListener('change', event => { const files = [...event.target.files]; document.querySelector('#fileName').textContent = files.length ? `${files.length} fichier${files.length > 1 ? 's' : ''} sélectionné${files.length > 1 ? 's' : ''}` : 'Aucun fichier sélectionné'; document.querySelector('#fileDrop').classList.toggle('has-file', Boolean(files.length)); });
+		const revealItems = document.querySelectorAll('.section-head, .filters, .product, .custom > div, .studio-note > div, .materials > div, .request-layout > div, .faq-grid > div, .service');
+		revealItems.forEach((item, index) => { item.classList.add('reveal'); if (index % 4 === 1) item.classList.add('reveal-delay-1'); if (index % 4 === 2) item.classList.add('reveal-delay-2'); });
+		const revealObserver = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); } }), { threshold: .12 });
+		revealItems.forEach(item => revealObserver.observe(item));
+	</script>
+</body>
+</html>
